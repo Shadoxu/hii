@@ -1,0 +1,2817 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Explore Hojai — Community Travel Platform</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --green: #2a6b3a;
+                --green-light: #e8f5ec;
+                --green-mid: #4a9b5f;
+                --teal: #1a6b6b;
+                --teal-light: #e0f4f4;
+                --orange: #c45c1a;
+                --orange-light: #fdf0e8;
+                --gold: #b8860b;
+                --dark: #1a1f2e;
+                --mid: #4a5568;
+                --light: #f7f9f4;
+                --white: #ffffff;
+                --border: #dce8dc;
+                --shadow: 0 4px 24px rgba(42, 107, 58, 0.1);
+                --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.07);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "DM Sans", sans-serif;
+                background: var(--light);
+                color: var(--dark);
+                overflow-x: hidden;
+            }
+
+            /* NAV */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                background: rgba(247, 249, 244, 0.95);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid var(--border);
+                padding: 0 5%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 64px;
+            }
+            .nav-logo {
+                font-family: "Playfair Display", serif;
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--green);
+                text-decoration: none;
+                letter-spacing: -0.01em;
+            }
+            .nav-logo span {
+                color: var(--orange);
+            }
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+            .nav-links a {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: var(--mid);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .nav-links a:hover {
+                color: var(--green);
+            }
+            .nav-cta {
+                background: var(--green);
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1.25rem;
+                border-radius: 8px;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.2s;
+                font-family: "DM Sans", sans-serif;
+            }
+            .nav-cta:hover {
+                background: var(--green-mid);
+            }
+
+            /* HERO */
+            .hero {
+                min-height: 100vh;
+                background:
+                    linear-gradient(
+                        160deg,
+                        rgba(42, 107, 58, 0.92) 0%,
+                        rgba(26, 107, 107, 0.85) 60%,
+                        rgba(196, 92, 26, 0.7) 100%
+                    ),
+                    url("https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=1400&q=80")
+                        center/cover no-repeat;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 8rem 5% 5rem;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                pointer-events: none;
+            }
+            .hero-badge {
+                display: inline-block;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                padding: 0.4rem 1rem;
+                border-radius: 100px;
+                margin-bottom: 1.5rem;
+                animation: fadeUp 0.6s ease both;
+            }
+            .hero h1 {
+                font-family: "Playfair Display", serif;
+                font-size: clamp(2.8rem, 6vw, 5rem);
+                font-weight: 900;
+                color: #fff;
+                line-height: 1.08;
+                margin-bottom: 1rem;
+                animation: fadeUp 0.6s 0.1s ease both;
+            }
+            .hero h1 em {
+                color: #ffd08a;
+                font-style: normal;
+            }
+            .hero p {
+                font-size: clamp(1rem, 2vw, 1.2rem);
+                color: rgba(255, 255, 255, 0.85);
+                max-width: 620px;
+                line-height: 1.7;
+                margin-bottom: 2.5rem;
+                animation: fadeUp 0.6s 0.2s ease both;
+            }
+            .hero-buttons {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                animation: fadeUp 0.6s 0.3s ease both;
+            }
+            .btn-primary {
+                background: #fff;
+                color: var(--green);
+                border: none;
+                padding: 0.85rem 2rem;
+                border-radius: 10px;
+                font-size: 0.95rem;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: "DM Sans", sans-serif;
+                transition: all 0.2s;
+                text-decoration: none;
+            }
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            }
+            .btn-outline {
+                background: transparent;
+                color: #fff;
+                border: 1.5px solid rgba(255, 255, 255, 0.5);
+                padding: 0.85rem 2rem;
+                border-radius: 10px;
+                font-size: 0.95rem;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: "DM Sans", sans-serif;
+                transition: all 0.2s;
+                text-decoration: none;
+            }
+            .btn-outline:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: #fff;
+            }
+
+            .hero-stats {
+                display: flex;
+                gap: 3rem;
+                margin-top: 4rem;
+                animation: fadeUp 0.6s 0.4s ease both;
+            }
+            .hero-stat {
+                text-align: center;
+                color: rgba(255, 255, 255, 0.9);
+            }
+            .hero-stat strong {
+                display: block;
+                font-size: 1.8rem;
+                font-weight: 700;
+                font-family: "Playfair Display", serif;
+            }
+            .hero-stat span {
+                font-size: 0.8rem;
+                opacity: 0.75;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+            }
+
+            .scroll-hint {
+                position: absolute;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                animation: bounce 2s infinite;
+            }
+            .scroll-hint::after {
+                content: "↓";
+                font-size: 1.2rem;
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            /* SECTIONS COMMON */
+            section {
+                padding: 5rem 5%;
+            }
+            .section-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .section-label::before {
+                content: "";
+                display: block;
+                width: 24px;
+                height: 2px;
+                background: var(--green);
+            }
+            .section-title {
+                font-family: "Playfair Display", serif;
+                font-size: clamp(1.8rem, 4vw, 2.8rem);
+                font-weight: 700;
+                color: var(--dark);
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+            .section-sub {
+                font-size: 1rem;
+                color: var(--mid);
+                line-height: 1.7;
+                max-width: 580px;
+            }
+
+            /* WHAT IS THIS PLATFORM */
+            .platform-intro {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 5rem;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .platform-visual {
+                position: relative;
+            }
+            .philosophy-card {
+                background: var(--green);
+                border-radius: 20px;
+                padding: 2.5rem;
+                color: #fff;
+                position: relative;
+                overflow: hidden;
+            }
+            .philosophy-card::after {
+                content: '"';
+                position: absolute;
+                right: 1.5rem;
+                top: -1rem;
+                font-size: 8rem;
+                font-family: "Playfair Display", serif;
+                color: rgba(255, 255, 255, 0.1);
+                line-height: 1;
+            }
+            .philosophy-card p {
+                font-family: "Playfair Display", serif;
+                font-size: 1.25rem;
+                font-style: italic;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+            .philosophy-card span {
+                font-size: 0.8rem;
+                opacity: 0.7;
+                font-weight: 500;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+            }
+            .mini-cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .mini-card {
+                background: var(--white);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 1.25rem;
+                transition: all 0.2s;
+            }
+            .mini-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-card);
+            }
+            .mini-card-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            .mini-card h4 {
+                font-size: 0.875rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+            }
+            .mini-card p {
+                font-size: 0.8rem;
+                color: var(--mid);
+                line-height: 1.5;
+            }
+
+            /* ROLES SECTION */
+            .roles-section {
+                background: var(--dark);
+            }
+            .roles-section .section-label {
+                color: #7dd4a0;
+            }
+            .roles-section .section-label::before {
+                background: #7dd4a0;
+            }
+            .roles-section .section-title {
+                color: #fff;
+            }
+            .roles-section .section-sub {
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .roles-tabs {
+                display: flex;
+                gap: 0.5rem;
+                margin: 2.5rem 0 2rem;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 12px;
+                padding: 0.35rem;
+                width: fit-content;
+            }
+            .role-tab {
+                padding: 0.6rem 1.25rem;
+                border-radius: 8px;
+                border: none;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.6);
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .role-tab.active {
+                background: var(--green);
+                color: #fff;
+            }
+
+            .role-content {
+                display: none;
+            }
+            .role-content.active {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                align-items: start;
+            }
+
+            .role-info h3 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.8rem;
+                color: #fff;
+                margin-bottom: 0.5rem;
+            }
+            .role-badge {
+                display: inline-block;
+                background: var(--green);
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 0.2rem 0.75rem;
+                border-radius: 100px;
+                margin-bottom: 1rem;
+            }
+            .role-badge.guide {
+                background: var(--orange);
+            }
+            .role-badge.admin {
+                background: var(--teal);
+            }
+            .role-badge.public {
+                background: var(--mid);
+            }
+
+            .role-info p {
+                color: rgba(255, 255, 255, 0.7);
+                line-height: 1.7;
+                margin-bottom: 1.5rem;
+            }
+
+            .role-features {
+                list-style: none;
+            }
+            .role-features li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 0.6rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 0.9rem;
+            }
+            .role-features li:last-child {
+                border-bottom: none;
+            }
+            .role-features li::before {
+                content: "✓";
+                color: #7dd4a0;
+                font-weight: 700;
+                flex-shrink: 0;
+                margin-top: 0.05rem;
+            }
+
+            .permissions-grid {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .perm-header {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                background: rgba(255, 255, 255, 0.08);
+                padding: 0.75rem 1.25rem;
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.5);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+            .perm-header span:not(:first-child),
+            .perm-row span:not(:first-child) {
+                text-align: center;
+            }
+            .perm-row {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                padding: 0.65rem 1.25rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.75);
+                align-items: center;
+            }
+            .perm-row:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+            .check {
+                color: #7dd4a0;
+                font-size: 1rem;
+            }
+            .cross {
+                color: rgba(255, 255, 255, 0.2);
+                font-size: 0.9rem;
+            }
+
+            /* CONTENT SECTION */
+            .content-section {
+                background: var(--white);
+            }
+            .content-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                margin-top: 3rem;
+            }
+            .content-card {
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 2rem;
+                transition: all 0.25s;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            }
+            .content-card::before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: var(--green);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.3s;
+            }
+            .content-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow);
+            }
+            .content-card:hover::before {
+                transform: scaleX(1);
+            }
+            .content-card-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.4rem;
+                margin-bottom: 1.25rem;
+                background: var(--green-light);
+            }
+            .content-card h3 {
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .content-card p {
+                font-size: 0.875rem;
+                color: var(--mid);
+                line-height: 1.6;
+            }
+
+            /* TOUR LISTS */
+            .tour-section {
+                background: linear-gradient(
+                    135deg,
+                    var(--green-light) 0%,
+                    var(--teal-light) 100%
+                );
+            }
+            .tour-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1.5rem;
+                margin-top: 2.5rem;
+            }
+            .tour-card {
+                background: var(--white);
+                border-radius: 16px;
+                padding: 1.75rem;
+                border: 1px solid var(--border);
+                position: relative;
+                transition: all 0.2s;
+            }
+            .tour-card:hover {
+                box-shadow: var(--shadow);
+                transform: translateY(-3px);
+            }
+            .tour-type-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 0.3rem 0.75rem;
+                border-radius: 100px;
+                margin-bottom: 1rem;
+            }
+            .badge-public {
+                background: var(--green-light);
+                color: var(--green);
+            }
+            .badge-private {
+                background: #f0f0f5;
+                color: #555;
+            }
+            .badge-collab {
+                background: var(--orange-light);
+                color: var(--orange);
+            }
+            .tour-card h3 {
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
+            }
+            .tour-card p {
+                font-size: 0.85rem;
+                color: var(--mid);
+                line-height: 1.6;
+                margin-bottom: 1.25rem;
+            }
+            .tour-stops {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+            .stop-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.8rem;
+                color: var(--mid);
+            }
+            .stop-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--green);
+                flex-shrink: 0;
+            }
+
+            /* TECH STACK */
+            .tech-section {
+                background: var(--white);
+            }
+            .tech-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+                margin-top: 2.5rem;
+            }
+            .tech-card {
+                background: var(--light);
+                border-radius: 12px;
+                padding: 1.25rem;
+                text-align: center;
+                border: 1px solid var(--border);
+                transition: all 0.2s;
+            }
+            .tech-card:hover {
+                border-color: var(--green);
+                background: var(--green-light);
+            }
+            .tech-layer {
+                font-size: 0.65rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 0.3rem;
+            }
+            .tech-name {
+                font-weight: 600;
+                font-size: 0.9rem;
+                margin-bottom: 0.2rem;
+            }
+            .tech-desc {
+                font-size: 0.75rem;
+                color: var(--mid);
+            }
+
+            /* ROADMAP */
+            .roadmap-section {
+                background: var(--dark);
+                overflow: hidden;
+            }
+            .roadmap-section .section-title {
+                color: #fff;
+            }
+            .roadmap-section .section-label {
+                color: #7dd4a0;
+            }
+            .roadmap-section .section-label::before {
+                background: #7dd4a0;
+            }
+            .roadmap-section .section-sub {
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .timeline {
+                position: relative;
+                margin-top: 3rem;
+            }
+            .timeline::before {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateX(-50%);
+            }
+            .timeline-item {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                margin-bottom: 3rem;
+                position: relative;
+            }
+            .timeline-item:nth-child(odd) .timeline-content {
+                grid-column: 1;
+                text-align: right;
+                padding-right: 2rem;
+            }
+            .timeline-item:nth-child(odd) .timeline-spacer {
+                grid-column: 2;
+            }
+            .timeline-item:nth-child(even) .timeline-content {
+                grid-column: 2;
+                padding-left: 2rem;
+            }
+            .timeline-item:nth-child(even) .timeline-spacer {
+                grid-column: 1;
+            }
+
+            .timeline-dot {
+                position: absolute;
+                left: 50%;
+                top: 0.5rem;
+                width: 14px;
+                height: 14px;
+                background: var(--green-mid);
+                border-radius: 50%;
+                border: 2px solid var(--dark);
+                transform: translateX(-50%);
+            }
+            .timeline-phase {
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--green-mid);
+                margin-bottom: 0.25rem;
+            }
+            .timeline-period {
+                font-size: 0.75rem;
+                color: rgba(255, 255, 255, 0.4);
+                margin-bottom: 0.5rem;
+            }
+            .timeline-content h3 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.1rem;
+                color: #fff;
+                margin-bottom: 0.5rem;
+            }
+            .timeline-content p {
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.6);
+                line-height: 1.6;
+            }
+            .timeline-metric {
+                display: inline-block;
+                margin-top: 0.75rem;
+                background: rgba(125, 212, 160, 0.15);
+                color: #7dd4a0;
+                font-size: 0.75rem;
+                font-weight: 600;
+                padding: 0.3rem 0.75rem;
+                border-radius: 100px;
+            }
+
+            /* METRICS */
+            .metrics-section {
+                background: var(--white);
+            }
+            .metrics-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                margin-top: 2.5rem;
+            }
+            .metric-card {
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 2rem;
+                text-align: center;
+                transition: all 0.2s;
+            }
+            .metric-card:hover {
+                border-color: var(--green);
+                box-shadow: var(--shadow);
+            }
+            .metric-period {
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .metric-period::before,
+            .metric-period::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
+            .metric-item {
+                margin-bottom: 1rem;
+            }
+            .metric-number {
+                font-family: "Playfair Display", serif;
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--dark);
+                line-height: 1;
+            }
+            .metric-label {
+                font-size: 0.8rem;
+                color: var(--mid);
+                margin-top: 0.2rem;
+            }
+
+            /* AGARWOOD SPOTLIGHT */
+            .spotlight {
+                background: linear-gradient(135deg, #1a1f2e 0%, #2a3a2a 100%);
+                padding: 5rem;
+                position: relative;
+                overflow: hidden;
+            }
+            .spotlight::before {
+                content: "";
+                position: absolute;
+                right: -5%;
+                top: -10%;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(
+                    circle,
+                    rgba(42, 107, 58, 0.3) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .spotlight-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 5rem;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .spotlight .section-label {
+                color: #ffd08a;
+            }
+            .spotlight .section-label::before {
+                background: #ffd08a;
+            }
+            .spotlight .section-title {
+                color: #fff;
+            }
+            .spotlight p {
+                color: rgba(255, 255, 255, 0.7);
+                line-height: 1.8;
+            }
+            .spotlight-facts {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            .spotlight-fact {
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 12px;
+                padding: 1.25rem;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            .spotlight-fact strong {
+                display: block;
+                font-size: 1.4rem;
+                font-family: "Playfair Display", serif;
+                color: #ffd08a;
+                margin-bottom: 0.25rem;
+            }
+            .spotlight-fact span {
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.55);
+            }
+
+            /* NEXT STEPS */
+            .nextsteps-section {
+                background: var(--light);
+            }
+            .steps-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+                margin-top: 2.5rem;
+            }
+            .step-card {
+                background: var(--white);
+                border-radius: 16px;
+                padding: 1.75rem;
+                border: 1px solid var(--border);
+                position: relative;
+                transition: all 0.2s;
+            }
+            .step-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow);
+                border-color: var(--green);
+            }
+            .step-number {
+                font-family: "Playfair Display", serif;
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--green-light);
+                line-height: 1;
+                margin-bottom: 0.5rem;
+            }
+            .step-card h3 {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .step-card p {
+                font-size: 0.825rem;
+                color: var(--mid);
+                line-height: 1.6;
+            }
+
+            /* CTA */
+            .cta-section {
+                background: var(--green);
+                padding: 6rem 5%;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .cta-section::before {
+                content: "EXPLORE HOJAI";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-family: "Playfair Display", serif;
+                font-size: 12rem;
+                font-weight: 900;
+                color: rgba(255, 255, 255, 0.04);
+                white-space: nowrap;
+                pointer-events: none;
+                letter-spacing: -0.03em;
+            }
+            .cta-section h2 {
+                font-family: "Playfair Display", serif;
+                font-size: clamp(2rem, 4vw, 3rem);
+                color: #fff;
+                margin-bottom: 1rem;
+                position: relative;
+            }
+            .cta-section p {
+                color: rgba(255, 255, 255, 0.8);
+                max-width: 500px;
+                margin: 0 auto 2.5rem;
+                line-height: 1.7;
+            }
+            .cta-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                position: relative;
+            }
+            .btn-white {
+                background: #fff;
+                color: var(--green);
+                border: none;
+                padding: 0.9rem 2rem;
+                border-radius: 10px;
+                font-size: 0.95rem;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: "DM Sans", sans-serif;
+                transition: all 0.2s;
+                text-decoration: none;
+            }
+            .btn-white:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }
+            .btn-ghost {
+                background: transparent;
+                color: #fff;
+                border: 1.5px solid rgba(255, 255, 255, 0.4);
+                padding: 0.9rem 2rem;
+                border-radius: 10px;
+                font-size: 0.95rem;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: "DM Sans", sans-serif;
+                transition: all 0.2s;
+                text-decoration: none;
+            }
+            .btn-ghost:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: #fff;
+            }
+
+            /* FOOTER */
+            footer {
+                background: var(--dark);
+                color: rgba(255, 255, 255, 0.5);
+                padding: 3rem 5%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .footer-logo {
+                font-family: "Playfair Display", serif;
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #fff;
+            }
+            .footer-logo span {
+                color: #ffd08a;
+            }
+            footer p {
+                font-size: 0.8rem;
+            }
+
+            /* ANIMATIONS */
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                }
+                50% {
+                    transform: translateX(-50%) translateY(-6px);
+                }
+            }
+
+            /* RESPONSIVE */
+            @media (max-width: 900px) {
+                .platform-intro,
+                .role-content.active,
+                .spotlight-grid,
+                .timeline::before {
+                    display: block;
+                }
+                .timeline-item {
+                    display: block;
+                }
+                .timeline-item .timeline-content {
+                    text-align: left !important;
+                    padding: 0 0 0 2rem !important;
+                }
+                .timeline-dot {
+                    left: 0;
+                }
+                .timeline::before {
+                    left: 7px;
+                }
+                .content-grid,
+                .tour-grid,
+                .tech-grid,
+                .steps-grid,
+                .metrics-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+                nav .nav-links {
+                    display: none;
+                }
+                .hero-stats {
+                    gap: 1.5rem;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+            }
+            @media (max-width: 600px) {
+                .content-grid,
+                .tour-grid,
+                .tech-grid,
+                .steps-grid,
+                .metrics-grid,
+                .spotlight-facts {
+                    grid-template-columns: 1fr;
+                }
+                .perm-header,
+                .perm-row {
+                    grid-template-columns: 2fr 0.7fr 0.7fr 0.7fr;
+                    font-size: 0.75rem;
+                }
+                .roles-tabs {
+                    flex-wrap: wrap;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- NAV -->
+        <nav>
+            <a class="nav-logo" href="#">Explore<span>Hojai</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#roles">Roles</a></li>
+                <li><a href="#content">Content</a></li>
+                <li><a href="#tech">Tech</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#next">Next Steps</a></li>
+            </ul>
+            <button
+                class="nav-cta"
+                onclick="
+                    document
+                        .getElementById('cta')
+                        .scrollIntoView({ behavior: 'smooth' })
+                "
+            >
+                Launch Platform
+            </button>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">📍 Hojai District, Assam, India</div>
+            <h1>
+                India's First<br /><em>District-Level</em><br />Travel Community
+            </h1>
+            <p>
+                Where verified travelers share real experiences, authorized
+                guides offer local expertise, and every perspective is valued —
+                from rickshaw driver to researcher.
+            </p>
+            <div class="hero-buttons">
+                <a class="btn-primary" href="#about">Explore the Vision</a>
+                <a class="btn-outline" href="#roles">See How It Works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <strong>3</strong><span>User Roles</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>6</strong><span>Content Categories</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>6</strong><span>Phase Roadmap</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>∞</strong><span>Perspectives</span>
+                </div>
+            </div>
+            <div class="scroll-hint">Scroll to explore</div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" style="background: var(--white); padding: 6rem 5%">
+            <div class="platform-intro">
+                <div>
+                    <div class="section-label">What Is This Platform</div>
+                    <h2 class="section-title">
+                        Hyper-local travel, powered by the community
+                    </h2>
+                    <p class="section-sub">
+                        While TripAdvisor covers cities and MakeMyTrip sells
+                        packages, the micro-cultures, hidden temples, and street
+                        food secrets of a district like Hojai go completely
+                        undocumented. We're changing that.
+                    </p>
+                    <br />
+                    <p
+                        style="
+                            color: var(--mid);
+                            line-height: 1.8;
+                            font-size: 0.95rem;
+                        "
+                    >
+                        Explore Hojai combines curated expert content with
+                        authentic community experiences. Verified travelers
+                        share their journeys. Authorized local guides offer
+                        professional expertise. And everyone — regardless of
+                        role — can answer questions, create tour lists, and
+                        contribute to the growing knowledge base.
+                    </p>
+                    <div class="mini-cards" style="margin-top: 2rem">
+                        <div class="mini-card">
+                            <div class="mini-card-icon">🌿</div>
+                            <h4>Agarwood Capital</h4>
+                            <p>
+                                Dedicated section for Hojai's world-famous
+                                Agarwood industry
+                            </p>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-card-icon">🗺️</div>
+                            <h4>Interactive Maps</h4>
+                            <p>
+                                Every place pinned, every tour list plotted as a
+                                live route
+                            </p>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-card-icon">🤝</div>
+                            <h4>Democratic Knowledge</h4>
+                            <p>
+                                No hierarchy — everyone's perspective has equal
+                                value
+                            </p>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-card-icon">📱</div>
+                            <h4>Mobile-First</h4>
+                            <p>
+                                Designed for travelers on the go, even in low
+                                connectivity
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-visual">
+                    <div class="philosophy-card">
+                        <p>
+                            "Every traveler is a guide. Every guide is a
+                            learner."
+                        </p>
+                        <span>Core Platform Philosophy</span>
+                    </div>
+                    <div
+                        style="
+                            background: var(--light);
+                            border-radius: 16px;
+                            padding: 1.75rem;
+                            margin-top: 1rem;
+                            border: 1px solid var(--border);
+                        "
+                    >
+                        <div
+                            style="
+                                font-size: 0.75rem;
+                                font-weight: 600;
+                                text-transform: uppercase;
+                                letter-spacing: 0.08em;
+                                color: var(--mid);
+                                margin-bottom: 1rem;
+                            "
+                        >
+                            The Gap We Fill
+                        </div>
+                        <div
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                gap: 0.75rem;
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                "
+                            >
+                                <span style="font-size: 0.875rem"
+                                    >TripAdvisor coverage of Hojai</span
+                                >
+                                <div
+                                    style="
+                                        width: 80px;
+                                        height: 6px;
+                                        background: var(--border);
+                                        border-radius: 3px;
+                                        overflow: hidden;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            width: 8%;
+                                            height: 100%;
+                                            background: #e74c3c;
+                                            border-radius: 3px;
+                                        "
+                                    ></div>
+                                </div>
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                "
+                            >
+                                <span style="font-size: 0.875rem"
+                                    >Google search results for Hojai</span
+                                >
+                                <div
+                                    style="
+                                        width: 80px;
+                                        height: 6px;
+                                        background: var(--border);
+                                        border-radius: 3px;
+                                        overflow: hidden;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            width: 12%;
+                                            height: 100%;
+                                            background: #e67e22;
+                                            border-radius: 3px;
+                                        "
+                                    ></div>
+                                </div>
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                "
+                            >
+                                <span
+                                    style="
+                                        font-size: 0.875rem;
+                                        color: var(--green);
+                                        font-weight: 500;
+                                    "
+                                    >Explore Hojai coverage (target)</span
+                                >
+                                <div
+                                    style="
+                                        width: 80px;
+                                        height: 6px;
+                                        background: var(--border);
+                                        border-radius: 3px;
+                                        overflow: hidden;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            width: 100%;
+                                            height: 100%;
+                                            background: var(--green);
+                                            border-radius: 3px;
+                                        "
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROLES -->
+        <section id="roles" class="roles-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">User Roles</div>
+                <h2 class="section-title">Four roles, one community</h2>
+                <p class="section-sub">
+                    Each role unlocks different capabilities — but every
+                    verified user can post, answer, and create tour lists.
+                </p>
+
+                <div class="roles-tabs">
+                    <button
+                        class="role-tab active"
+                        onclick="showRole('public', this)"
+                    >
+                        General Public
+                    </button>
+                    <button
+                        class="role-tab"
+                        onclick="showRole('traveler', this)"
+                    >
+                        Verified Traveler
+                    </button>
+                    <button class="role-tab" onclick="showRole('guide', this)">
+                        Authorized Guide
+                    </button>
+                    <button class="role-tab" onclick="showRole('admin', this)">
+                        Admin
+                    </button>
+                </div>
+
+                <!-- PUBLIC -->
+                <div id="role-public" class="role-content active">
+                    <div class="role-info">
+                        <span class="role-badge public">General Public</span>
+                        <h3>Explore Freely</h3>
+                        <p>
+                            Anyone who visits the platform can browse all public
+                            content — experiences, places, tour lists, guide
+                            profiles, and the interactive map. No account needed
+                            to discover Hojai.
+                        </p>
+                        <ul class="role-features">
+                            <li>Browse all experience posts and reviews</li>
+                            <li>View interactive map with all locations</li>
+                            <li>Read public tour lists and itineraries</li>
+                            <li>
+                                View authorized guide profiles and offerings
+                            </li>
+                            <li>Read community Q&A answers</li>
+                            <li>See seasonal travel guide and logistics</li>
+                        </ul>
+                        <div
+                            style="
+                                margin-top: 1.5rem;
+                                padding: 1rem;
+                                background: rgba(255, 255, 255, 0.05);
+                                border-radius: 10px;
+                                border: 1px solid rgba(255, 255, 255, 0.1);
+                            "
+                        >
+                            <p
+                                style="
+                                    font-size: 0.85rem;
+                                    color: rgba(255, 255, 255, 0.5);
+                                "
+                            >
+                                To contribute content, register as a Verified
+                                Traveler — just phone OTP + email, takes 2
+                                minutes.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="permissions-grid">
+                        <div class="perm-header">
+                            <span>Feature</span><span>Public</span
+                            ><span>Traveler</span><span>Guide</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Browse content</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Post experiences</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Answer questions</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Create tour lists</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Upload photos</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Guide profile page</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Accept bookings</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Moderate content</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRAVELER -->
+                <div id="role-traveler" class="role-content">
+                    <div class="role-info">
+                        <span class="role-badge">Verified Traveler</span>
+                        <h3>Share Your Story</h3>
+                        <p>
+                            The backbone of the platform. Any person — visiting
+                            tourist, local resident, or researcher — can become
+                            a Verified Traveler with a simple phone OTP. Full
+                            contribution access immediately.
+                        </p>
+                        <ul class="role-features">
+                            <li>
+                                Post experience stories with photos and ratings
+                            </li>
+                            <li>
+                                Create Public, Private, and Collaborative tour
+                                lists
+                            </li>
+                            <li>
+                                Ask questions and answer any community question
+                            </li>
+                            <li>
+                                Rate and review places, food, accommodations,
+                                guides
+                            </li>
+                            <li>
+                                Upvote the best answers to surface community
+                                wisdom
+                            </li>
+                            <li>
+                                Earn badges — Food Critic, Hidden Gem Hunter,
+                                Local Voice
+                            </li>
+                            <li>
+                                Convert private trip plans to public itineraries
+                                post-visit
+                            </li>
+                        </ul>
+                        <div
+                            style="
+                                margin-top: 1.5rem;
+                                padding: 1rem;
+                                background: rgba(125, 212, 160, 0.1);
+                                border-radius: 10px;
+                                border: 1px solid rgba(125, 212, 160, 0.2);
+                            "
+                        >
+                            <p
+                                style="
+                                    font-size: 0.85rem;
+                                    color: rgba(255, 255, 255, 0.7);
+                                "
+                            >
+                                Verification: Phone OTP + email confirmation. No
+                                ID required. Takes under 2 minutes.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="permissions-grid">
+                        <div class="perm-header">
+                            <span>Feature</span><span>Public</span
+                            ><span>Traveler</span><span>Guide</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Browse content</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Post experiences</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Answer questions</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Create tour lists</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Upload photos</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Guide profile page</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Accept bookings</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Moderate content</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GUIDE -->
+                <div id="role-guide" class="role-content">
+                    <div class="role-info">
+                        <span class="role-badge guide">Authorized Guide</span>
+                        <h3>Turn Knowledge Into Income</h3>
+                        <p>
+                            Professional and semi-professional local guides who
+                            are vetted and approved by Admin. They get
+                            everything a Verified Traveler has — plus a full
+                            professional presence and booking capability.
+                        </p>
+                        <ul class="role-features">
+                            <li>Full Verified Traveler capabilities</li>
+                            <li>
+                                Dedicated guide profile page in the Guide
+                                Directory
+                            </li>
+                            <li>
+                                Post official tour offerings with pricing and
+                                availability
+                            </li>
+                            <li>
+                                Accept direct booking inquiries from travelers
+                            </li>
+                            <li>
+                                Guide badge on all answered questions for trust
+                                signal
+                            </li>
+                            <li>
+                                Guide Dashboard with booking and review
+                                analytics
+                            </li>
+                            <li>
+                                Specialties: Agarwood, Heritage, Food Walks,
+                                Nature Treks
+                            </li>
+                        </ul>
+                        <div
+                            style="
+                                margin-top: 1.5rem;
+                                padding: 1rem;
+                                background: rgba(196, 92, 26, 0.1);
+                                border-radius: 10px;
+                                border: 1px solid rgba(196, 92, 26, 0.2);
+                            "
+                        >
+                            <p
+                                style="
+                                    font-size: 0.85rem;
+                                    color: rgba(255, 255, 255, 0.7);
+                                "
+                            >
+                                Verification: ID upload + experience proof.
+                                Admin reviews within 3–5 business days.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="permissions-grid">
+                        <div class="perm-header">
+                            <span>Feature</span><span>Public</span
+                            ><span>Traveler</span><span>Guide</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Browse content</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Post experiences</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Answer questions</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Create tour lists</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Upload photos</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Guide profile page</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Accept bookings</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Moderate content</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADMIN -->
+                <div id="role-admin" class="role-content">
+                    <div class="role-info">
+                        <span class="role-badge admin">Admin</span>
+                        <h3>Own the Ecosystem</h3>
+                        <p>
+                            Full platform control. You curate the content, vet
+                            the guides, moderate the community, and steer the
+                            platform's growth. Initially a single-person role —
+                            expandable to a team.
+                        </p>
+                        <ul class="role-features">
+                            <li>
+                                Approve or reject guide applications with
+                                feedback
+                            </li>
+                            <li>
+                                Moderate all content — remove, edit, or feature
+                                any post
+                            </li>
+                            <li>
+                                Pin the best Q&A answers and feature top tour
+                                lists
+                            </li>
+                            <li>
+                                Manage business listings and partnership
+                                accounts
+                            </li>
+                            <li>
+                                Full analytics dashboard — traffic, users,
+                                content performance
+                            </li>
+                            <li>
+                                Issue badges manually to recognize contributors
+                            </li>
+                            <li>
+                                Manage platform categories, tags, and seasonal
+                                content
+                            </li>
+                        </ul>
+                        <div
+                            style="
+                                margin-top: 1.5rem;
+                                padding: 1rem;
+                                background: rgba(26, 107, 107, 0.15);
+                                border-radius: 10px;
+                                border: 1px solid rgba(26, 107, 107, 0.3);
+                            "
+                        >
+                            <p
+                                style="
+                                    font-size: 0.85rem;
+                                    color: rgba(255, 255, 255, 0.7);
+                                "
+                            >
+                                Admin access is private. A separate admin
+                                dashboard URL with secure login. Expandable to a
+                                moderation team.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="permissions-grid">
+                        <div class="perm-header">
+                            <span>Feature</span><span>Public</span
+                            ><span>Traveler</span><span>Guide</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Browse content</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Post experiences</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Answer questions</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Create tour lists</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Upload photos</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Guide profile page</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Accept bookings</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="check">✓</span>
+                        </div>
+                        <div class="perm-row">
+                            <span>Moderate content</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span
+                            ><span class="cross">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTENT CATEGORIES -->
+        <section id="content" class="content-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">Content Architecture</div>
+                <h2 class="section-title">
+                    Six content pillars, one complete picture
+                </h2>
+                <p class="section-sub">
+                    Every piece of content falls into one of six curated
+                    categories — giving travelers a complete picture of Hojai
+                    without any gap.
+                </p>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="content-card-icon">💎</div>
+                        <h3>Hidden Gems</h3>
+                        <p>
+                            Beyond the top 3 tourist spots. Ancient temples in
+                            villages, local waterfalls, scenic drives, quiet
+                            river ghats — places only locals know.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <div class="content-card-icon">🍛</div>
+                        <h3>Culinary Trail</h3>
+                        <p>
+                            Food changes every 50 km in India. Named vendors,
+                            specific dishes, traditional dhabas, breakfast
+                            culture, and seasonal street food specialties.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <div class="content-card-icon">🏛️</div>
+                        <h3>Culture & Heritage</h3>
+                        <p>
+                            Festivals with exact dates, traditional arts, local
+                            music, the diversity of Assamese, Bengali, tribal,
+                            and Muslim communities.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <div class="content-card-icon">🚌</div>
+                        <h3>Logistics & Practicality</h3>
+                        <p>
+                            How to reach Hojai from anywhere, local transport
+                            with rates, accommodation options, ATMs, network
+                            coverage, emergency contacts.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <div class="content-card-icon">🌿</div>
+                        <h3>Nature & Outdoors</h3>
+                        <p>
+                            Rivers, forests, viewpoints, trekking routes.
+                            Seasonal accessibility, safety info, and wildlife
+                            sighting reports from the community.
+                        </p>
+                    </div>
+                    <div
+                        class="content-card"
+                        style="
+                            border-color: var(--gold);
+                            background: linear-gradient(
+                                135deg,
+                                #fffdf5,
+                                #fff8e8
+                            );
+                        "
+                    >
+                        <div
+                            class="content-card-icon"
+                            style="background: #fdf5dc"
+                        >
+                            🌳
+                        </div>
+                        <h3>Agarwood Spotlight</h3>
+                        <p>
+                            Dedicated section for Hojai's world-famous Agarwood
+                            industry — factories to visit, grading explained,
+                            ethical sourcing, artisan interviews.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOUR LISTS -->
+        <section class="tour-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">Tour Lists</div>
+                <h2 class="section-title">Three types of tour lists</h2>
+                <p class="section-sub">
+                    Every verified user — traveler or guide — can create tour
+                    lists. Public ones are shared with the world, private ones
+                    are personal planners, collaborative ones are built
+                    together.
+                </p>
+                <div class="tour-grid">
+                    <div class="tour-card">
+                        <div class="tour-type-badge badge-public">
+                            🌍 Public
+                        </div>
+                        <h3>My 3-Day Hojai Food Trail</h3>
+                        <p>
+                            Visible to everyone. Community can save, share, and
+                            upvote. Appears in search and can be featured by
+                            Admin.
+                        </p>
+                        <div class="tour-stops">
+                            <div class="stop-item">
+                                <div class="stop-dot"></div>
+                                Irani Chai at New Market
+                            </div>
+                            <div class="stop-item">
+                                <div class="stop-dot"></div>
+                                Fish curry at Haji's Dhaba
+                            </div>
+                            <div class="stop-item">
+                                <div class="stop-dot"></div>
+                                Evening street snacks, Bus Stand
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--border)"
+                                ></div>
+                                <span style="color: var(--border)"
+                                    >+4 more stops</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <div class="tour-type-badge badge-private">
+                            🔒 Private
+                        </div>
+                        <h3>My Agarwood Factory Visit Plan</h3>
+                        <p>
+                            Only visible to you. Personal trip planner — add
+                            places, notes, timing. Convert to public after your
+                            visit.
+                        </p>
+                        <div class="tour-stops">
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: #999"
+                                ></div>
+                                Sunrise: Arrive Hojai station
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: #999"
+                                ></div>
+                                Morning: Factory visit (TBC)
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: #999"
+                                ></div>
+                                Afternoon: Perfume market
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--border)"
+                                ></div>
+                                <span style="color: var(--border)"
+                                    >+2 more stops</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <div class="tour-type-badge badge-collab">
+                            🤝 Collaborative
+                        </div>
+                        <h3>Hojai Weekend — Group Trip 2026</h3>
+                        <p>
+                            Shared between specific users. Friends or a guide +
+                            traveler build the itinerary together before the
+                            trip.
+                        </p>
+                        <div class="tour-stops">
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--orange)"
+                                ></div>
+                                Day 1: Heritage walk (Rahul)
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--orange)"
+                                ></div>
+                                Day 1: Riverside sunset (Priya)
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--orange)"
+                                ></div>
+                                Day 2: Agarwood tour (Guide)
+                            </div>
+                            <div class="stop-item">
+                                <div
+                                    class="stop-dot"
+                                    style="background: var(--border)"
+                                ></div>
+                                <span style="color: var(--border)"
+                                    >+3 more stops</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGARWOOD SPOTLIGHT -->
+        <section class="spotlight">
+            <div class="spotlight-grid">
+                <div>
+                    <div class="section-label">Hojai's Unique Asset</div>
+                    <h2 class="section-title">The Agarwood Capital of India</h2>
+                    <p>
+                        Hojai is home to one of India's most significant
+                        Agarwood (Oud) industries — a fragrant wood worth more
+                        than gold by weight, yet almost completely invisible
+                        online. Explore Hojai will be the first platform to
+                        document this extraordinary industry for the world.
+                    </p>
+                    <div class="spotlight-facts">
+                        <div class="spotlight-fact">
+                            <strong>#1</strong
+                            ><span>Agarwood exporting district in Assam</span>
+                        </div>
+                        <div class="spotlight-fact">
+                            <strong>₹0</strong
+                            ><span
+                                >Dedicated digital travel guide currently
+                                exists</span
+                            >
+                        </div>
+                        <div class="spotlight-fact">
+                            <strong>100+</strong
+                            ><span
+                                >Agarwood traders and factories in the
+                                district</span
+                            >
+                        </div>
+                        <div class="spotlight-fact">
+                            <strong>∞</strong
+                            ><span>Stories waiting to be told</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="
+                        background: rgba(255, 255, 255, 0.05);
+                        border-radius: 20px;
+                        padding: 2.5rem;
+                        border: 1px solid rgba(255, 255, 255, 0.08);
+                    "
+                >
+                    <h3
+                        style="
+                            color: #ffd08a;
+                            font-family: &quot;Playfair Display&quot;, serif;
+                            font-size: 1.3rem;
+                            margin-bottom: 1.5rem;
+                        "
+                    >
+                        Agarwood Section Will Cover
+                    </h3>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 1rem"
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                gap: 1rem;
+                                align-items: flex-start;
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 32px;
+                                    height: 32px;
+                                    background: rgba(184, 134, 11, 0.2);
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    flex-shrink: 0;
+                                    font-size: 0.9rem;
+                                "
+                            >
+                                🏭
+                            </div>
+                            <div>
+                                <div
+                                    style="
+                                        color: #fff;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        margin-bottom: 0.2rem;
+                                    "
+                                >
+                                    Factory & Farm Visits
+                                </div>
+                                <div
+                                    style="
+                                        color: rgba(255, 255, 255, 0.5);
+                                        font-size: 0.8rem;
+                                    "
+                                >
+                                    Which facilities welcome visitors, how to
+                                    book, what to expect
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                display: flex;
+                                gap: 1rem;
+                                align-items: flex-start;
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 32px;
+                                    height: 32px;
+                                    background: rgba(184, 134, 11, 0.2);
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    flex-shrink: 0;
+                                    font-size: 0.9rem;
+                                "
+                            >
+                                📊
+                            </div>
+                            <div>
+                                <div
+                                    style="
+                                        color: #fff;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        margin-bottom: 0.2rem;
+                                    "
+                                >
+                                    Grading & Pricing Guide
+                                </div>
+                                <div
+                                    style="
+                                        color: rgba(255, 255, 255, 0.5);
+                                        font-size: 0.8rem;
+                                    "
+                                >
+                                    How to understand quality grades, what
+                                    prices are fair
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                display: flex;
+                                gap: 1rem;
+                                align-items: flex-start;
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 32px;
+                                    height: 32px;
+                                    background: rgba(184, 134, 11, 0.2);
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    flex-shrink: 0;
+                                    font-size: 0.9rem;
+                                "
+                            >
+                                🛍️
+                            </div>
+                            <div>
+                                <div
+                                    style="
+                                        color: #fff;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        margin-bottom: 0.2rem;
+                                    "
+                                >
+                                    Where to Buy Authentically
+                                </div>
+                                <div
+                                    style="
+                                        color: rgba(255, 255, 255, 0.5);
+                                        font-size: 0.8rem;
+                                    "
+                                >
+                                    Verified vendors, ethical sourcing, avoiding
+                                    tourist traps
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                display: flex;
+                                gap: 1rem;
+                                align-items: flex-start;
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 32px;
+                                    height: 32px;
+                                    background: rgba(184, 134, 11, 0.2);
+                                    border-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    flex-shrink: 0;
+                                    font-size: 0.9rem;
+                                "
+                            >
+                                🎙️
+                            </div>
+                            <div>
+                                <div
+                                    style="
+                                        color: #fff;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        margin-bottom: 0.2rem;
+                                    "
+                                >
+                                    Artisan Interviews
+                                </div>
+                                <div
+                                    style="
+                                        color: rgba(255, 255, 255, 0.5);
+                                        font-size: 0.8rem;
+                                    "
+                                >
+                                    Local Voices from industry workers, traders,
+                                    and cultivators
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH STACK -->
+        <section id="tech" class="tech-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">Technical Architecture</div>
+                <h2 class="section-title">Built to scale from day one</h2>
+                <p class="section-sub">
+                    A modern, production-grade stack chosen for performance in
+                    low-connectivity environments and ease of a solo developer
+                    to launch and manage.
+                </p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-layer">Frontend</div>
+                        <div class="tech-name">Next.js</div>
+                        <div class="tech-desc">
+                            SEO-friendly server-side rendering
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Styling</div>
+                        <div class="tech-name">Tailwind CSS</div>
+                        <div class="tech-desc">
+                            Responsive, mobile-first design
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Backend</div>
+                        <div class="tech-name">Node.js + Express</div>
+                        <div class="tech-desc">Scalable REST API layer</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Database</div>
+                        <div class="tech-name">PostgreSQL</div>
+                        <div class="tech-desc">
+                            Relational data with full schema
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Auth</div>
+                        <div class="tech-name">Firebase Auth</div>
+                        <div class="tech-desc">
+                            SMS OTP + Google social login
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Media</div>
+                        <div class="tech-name">Cloudinary</div>
+                        <div class="tech-desc">
+                            Image upload, compression, CDN
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Maps</div>
+                        <div class="tech-name">Google Maps API</div>
+                        <div class="tech-desc">
+                            Interactive maps and geocoding
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Search</div>
+                        <div class="tech-name">Algolia</div>
+                        <div class="tech-desc">
+                            Fast full-text search across all content
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Hosting</div>
+                        <div class="tech-name">Vercel</div>
+                        <div class="tech-desc">
+                            Global CDN, zero-config Next.js
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">API Host</div>
+                        <div class="tech-name">Railway</div>
+                        <div class="tech-desc">
+                            Affordable managed Node hosting
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">DB Host</div>
+                        <div class="tech-name">Supabase</div>
+                        <div class="tech-desc">
+                            Managed PostgreSQL with dashboard
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-layer">Analytics</div>
+                        <div class="tech-name">Plausible</div>
+                        <div class="tech-desc">
+                            Privacy-friendly traffic analytics
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROADMAP -->
+        <section id="roadmap" class="roadmap-section" style="padding: 6rem 5%">
+            <div style="max-width: 1000px; margin: 0 auto">
+                <div class="section-label">Execution Roadmap</div>
+                <h2 class="section-title">
+                    Six phases to a self-sustaining platform
+                </h2>
+                <p class="section-sub">
+                    From first line of code to district-licensing model — a
+                    realistic, step-by-step growth plan.
+                </p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 1</div>
+                            <div class="timeline-period">Weeks 1–4</div>
+                            <h3>Foundation</h3>
+                            <p>
+                                Domain registered. Platform built with 15+
+                                curated place listings, 5 itineraries, full
+                                Agarwood section, and interactive map. Admin
+                                panel live.
+                            </p>
+                            <span class="timeline-metric">Platform live</span>
+                        </div>
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 2</div>
+                            <div class="timeline-period">Weeks 5–10</div>
+                            <h3>Community</h3>
+                            <p>
+                                User registration with OTP live. Verified
+                                Traveler role active. Experience posting, tour
+                                lists, and Q&A fully functional. First 50 users
+                                onboarded.
+                            </p>
+                            <span class="timeline-metric"
+                                >50 users · 20+ posts</span
+                            >
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 3</div>
+                            <div class="timeline-period">Weeks 11–16</div>
+                            <h3>Guides</h3>
+                            <p>
+                                Guide application system live. First 5
+                                Authorized Guides onboarded and profiled.
+                                Booking inquiry system active. Guide Directory
+                                live and searchable.
+                            </p>
+                            <span class="timeline-metric"
+                                >5 guides · 10+ inquiries</span
+                            >
+                        </div>
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 4</div>
+                            <div class="timeline-period">Months 5–8</div>
+                            <h3>Growth</h3>
+                            <p>
+                                SEO optimized for district-level search.
+                                Instagram and YouTube Shorts presence. Local
+                                press coverage. 500+ registered users
+                                organically.
+                            </p>
+                            <span class="timeline-metric"
+                                >500 users · Page 1 Google</span
+                            >
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 5</div>
+                            <div class="timeline-period">Months 9–12</div>
+                            <h3>Monetization</h3>
+                            <p>
+                                Premium business listings. Guide booking
+                                commission (10–15%). AdSense and affiliate
+                                revenue. Platform becomes financially
+                                self-sustaining.
+                            </p>
+                            <span class="timeline-metric"
+                                >First revenue · Self-sustaining</span
+                            >
+                        </div>
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-spacer"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-phase">Phase 6</div>
+                            <div class="timeline-period">Year 2</div>
+                            <h3>Expansion</h3>
+                            <p>
+                                Model licensed to 2 new districts. Team
+                                expanded. Investor pitch prepared. Explore Hojai
+                                becomes the proof-of-concept for district-level
+                                India travel.
+                            </p>
+                            <span class="timeline-metric"
+                                >3 districts live</span
+                            >
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- METRICS -->
+        <section class="metrics-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">Success Metrics</div>
+                <h2 class="section-title">Measurable targets at every stage</h2>
+                <p class="section-sub">
+                    Clear, achievable KPIs to track growth from launch to a
+                    thriving community platform.
+                </p>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-period">3 Months</div>
+                        <div class="metric-item">
+                            <div class="metric-number">100</div>
+                            <div class="metric-label">Registered Users</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">50</div>
+                            <div class="metric-label">Experience Posts</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">5</div>
+                            <div class="metric-label">Authorized Guides</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">30</div>
+                            <div class="metric-label">Places Listed</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">500/mo</div>
+                            <div class="metric-label">Organic Traffic</div>
+                        </div>
+                    </div>
+                    <div
+                        class="metric-card"
+                        style="border-color: var(--green-mid)"
+                    >
+                        <div class="metric-period" style="color: var(--green)">
+                            6 Months
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">500</div>
+                            <div class="metric-label">Registered Users</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">300</div>
+                            <div class="metric-label">Experience Posts</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">15</div>
+                            <div class="metric-label">Authorized Guides</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">80</div>
+                            <div class="metric-label">Places Listed</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">3,000/mo</div>
+                            <div class="metric-label">Organic Traffic</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-period">12 Months</div>
+                        <div class="metric-item">
+                            <div class="metric-number">2,000</div>
+                            <div class="metric-label">Registered Users</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">1,500</div>
+                            <div class="metric-label">Experience Posts</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">30</div>
+                            <div class="metric-label">Authorized Guides</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">200</div>
+                            <div class="metric-label">Places Listed</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">15,000/mo</div>
+                            <div class="metric-label">Organic Traffic</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEXT STEPS -->
+        <section id="next" class="nextsteps-section" style="padding: 6rem 5%">
+            <div style="max-width: 1100px; margin: 0 auto">
+                <div class="section-label">Immediate Action</div>
+                <h2 class="section-title">Seven steps to start this week</h2>
+                <p class="section-sub">
+                    Everything you need to do right now to move from
+                    documentation to live product.
+                </p>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>Register Domain</h3>
+                        <p>
+                            Secure ExploreHojai.com or HojaiGuide.com — check
+                            availability now. Under ₹1,000/year on GoDaddy or
+                            Namecheap.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>GitHub Repository</h3>
+                        <p>
+                            Set up a private GitHub repo with Next.js starter
+                            template. Version control from day one.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Build Phase 1 UI</h3>
+                        <p>
+                            Homepage, places listing page, and interactive map
+                            prototype. Use this webpage as your pitch/reference.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h3>Write First 5 Places</h3>
+                        <p>
+                            From your personal knowledge of Hojai — write 5
+                            place descriptions with photos, practical info, and
+                            tips.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">05</div>
+                        <h3>Identify First Guides</h3>
+                        <p>
+                            Find 3 local people — heritage experts, food market
+                            regulars, Agarwood insiders — and pitch the guide
+                            role.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">06</div>
+                        <h3>Google Search Console</h3>
+                        <p>
+                            Set up GSC and Google Analytics accounts now. Even
+                            before launch — it speeds up indexing enormously.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">07</div>
+                        <h3>Instagram @ExploreHojai</h3>
+                        <p>
+                            Start building an audience before the platform is
+                            live. Post 1 photo/fact about Hojai daily.
+                            Pre-launch audience = pre-launch users.
+                        </p>
+                    </div>
+                    <div
+                        class="step-card"
+                        style="
+                            background: var(--green);
+                            border-color: var(--green);
+                        "
+                    >
+                        <div
+                            class="step-number"
+                            style="color: rgba(255, 255, 255, 0.2)"
+                        >
+                            ∞
+                        </div>
+                        <h3 style="color: #fff">Your Biggest Advantage</h3>
+                        <p style="color: rgba(255, 255, 255, 0.8)">
+                            You live in Hojai. No one sitting in Mumbai or Delhi
+                            can compete with that. Start now.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="cta" class="cta-section">
+            <h2>Ready to put Hojai on the map?</h2>
+            <p>
+                The platform, the documentation, the roadmap — everything is
+                ready. The only thing missing is the first commit.
+            </p>
+            <div class="cta-buttons">
+                <a class="btn-white" href="#about">Read the Full Vision</a>
+                <a class="btn-ghost" href="#next">Start This Week</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-logo">Explore<span>Hojai</span></div>
+            <p>
+                Community-Driven Travel Platform · Hojai District, Assam, India
+            </p>
+            <p style="font-size: 0.75rem">Documentation v1.0 · Aug - 2021</p>
+            <p style="font-size: 0.57rem">"often better stuff takes time"</p>
+        </footer>
+
+        <script>
+            function showRole(role, btn) {
+                document
+                    .querySelectorAll(".role-content")
+                    .forEach((el) => el.classList.remove("active"));
+                document
+                    .querySelectorAll(".role-tab")
+                    .forEach((el) => el.classList.remove("active"));
+                document.getElementById("role-" + role).classList.add("active");
+                btn.classList.add("active");
+            }
+
+            // Intersection observer for subtle fade-in
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = "1";
+                            entry.target.style.transform = "translateY(0)";
+                        }
+                    });
+                },
+                { threshold: 0.1 },
+            );
+
+            document
+                .querySelectorAll(
+                    ".content-card, .tour-card, .tech-card, .step-card, .metric-card, .timeline-item",
+                )
+                .forEach((el) => {
+                    el.style.opacity = "0";
+                    el.style.transform = "translateY(16px)";
+                    el.style.transition =
+                        "opacity 0.5s ease, transform 0.5s ease";
+                    observer.observe(el);
+                });
+
+            // Nav active state on scroll
+            const sections = document.querySelectorAll("section[id]");
+            const navLinks = document.querySelectorAll(".nav-links a");
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach((s) => {
+                    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+                });
+                navLinks.forEach((a) => {
+                    a.style.color =
+                        a.getAttribute("href") === "#" + current
+                            ? "var(--green)"
+                            : "";
+                });
+            });
+        </script>
+    </body>
+</html>
